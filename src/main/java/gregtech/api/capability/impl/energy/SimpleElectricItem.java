@@ -41,7 +41,7 @@ public class SimpleElectricItem extends AbstractItemBasedAttribute implements El
 
     @Override
     public long getMaxCharge() {
-        NbtCompound electricItemTag = this.stackRef.get().getSubTag(SUBTAG_NAME);
+        NbtCompound electricItemTag = this.stackRef.get().getSubNbt(SUBTAG_NAME);
 
         if (electricItemTag != null && electricItemTag.contains("MaxCharge", NbtElement.NUMBER_TYPE)) {
             return electricItemTag.getLong("MaxCharge");
@@ -51,7 +51,7 @@ public class SimpleElectricItem extends AbstractItemBasedAttribute implements El
 
     @Override
     public long getCharge() {
-        NbtCompound electricItemTag = this.stackRef.get().getSubTag(SUBTAG_NAME);
+        NbtCompound electricItemTag = this.stackRef.get().getSubNbt(SUBTAG_NAME);
 
         if (electricItemTag != null) {
             if (electricItemTag.getBoolean("Infinite")) {
@@ -70,7 +70,7 @@ public class SimpleElectricItem extends AbstractItemBasedAttribute implements El
         ItemStack newStack = oldStack.split(1);
 
         if (newMaxCharge != this.maxCharge) {
-            NbtCompound electricItemTag = newStack.getOrCreateSubTag(SUBTAG_NAME);
+            NbtCompound electricItemTag = newStack.getOrCreateSubNbt(SUBTAG_NAME);
 
             if (newMaxCharge == Integer.MAX_VALUE) {
                 electricItemTag.remove("MaxCharge");
@@ -91,7 +91,7 @@ public class SimpleElectricItem extends AbstractItemBasedAttribute implements El
         ItemStack newStack = oldStack.split(1);
 
         if (newCharge != 0L) {
-            NbtCompound electricItemTag = newStack.getOrCreateSubTag(SUBTAG_NAME);
+            NbtCompound electricItemTag = newStack.getOrCreateSubNbt(SUBTAG_NAME);
             electricItemTag.putLong("Charge", newCharge);
         } else {
            removeKeyAndSubTagIfEmpty(newStack, "Charge");
@@ -101,13 +101,13 @@ public class SimpleElectricItem extends AbstractItemBasedAttribute implements El
     }
 
     private void removeKeyAndSubTagIfEmpty(ItemStack stack, String key) {
-        NbtCompound electricItemTag = stack.getSubTag(SUBTAG_NAME);
+        NbtCompound electricItemTag = stack.getSubNbt(SUBTAG_NAME);
 
         if (electricItemTag != null) {
             electricItemTag.remove(key);
 
             if (electricItemTag.isEmpty()) {
-                stack.removeSubTag(SUBTAG_NAME);
+                stack.removeSubNbt(SUBTAG_NAME);
             }
         }
     }

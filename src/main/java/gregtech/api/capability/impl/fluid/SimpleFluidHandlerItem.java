@@ -22,7 +22,7 @@ public class SimpleFluidHandlerItem extends ItemBasedSingleFluidInv {
 
     @Override
     protected HeldFluidInfo getInfo(ItemStack stack) {
-        NbtCompound fluidTag = stack.getSubTag(TAG);
+        NbtCompound fluidTag = stack.getSubNbt(TAG);
         if (fluidTag == null) {
             return new HeldFluidInfo(FluidVolumeUtil.EMPTY, capacity);
         }
@@ -34,11 +34,11 @@ public class SimpleFluidHandlerItem extends ItemBasedSingleFluidInv {
     @Override
     protected ItemStack writeToStack(ItemStack stack, FluidVolume fluid) {
         if (fluid.isEmpty()) {
-            stack.removeSubTag(TAG);
+            stack.removeSubNbt(TAG);
             return stack;
         }
 
-        NbtCompound fluidTag = stack.getOrCreateSubTag(TAG);
+        NbtCompound fluidTag = stack.getOrCreateSubNbt(TAG);
         fluid.toTag(fluidTag);
         return stack;
     }

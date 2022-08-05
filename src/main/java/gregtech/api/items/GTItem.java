@@ -207,20 +207,20 @@ public class GTItem extends Item implements AttributeProviderItem, CustomMaxCoun
 
     private static void setInDischargeMode(ItemStack itemStack, boolean isDischargeMode) {
         if (isDischargeMode) {
-            NbtCompound compound = itemStack.getOrCreateTag();
+            NbtCompound compound = itemStack.getOrCreateNbt();
             compound.putBoolean("DischargeMode", true);
         } else {
-            NbtCompound tagCompound = itemStack.getTag();
+            NbtCompound tagCompound = itemStack.getNbt();
             if (tagCompound != null) {
                 tagCompound.remove("DischargeMode");
                 if (tagCompound.isEmpty()) {
-                    itemStack.setTag(null);
+                    itemStack.setNbt(null);
                 }
             }
         }
     }
     private static boolean isInDishargeMode(ItemStack itemStack) {
-        NbtCompound compound = itemStack.getTag();
+        NbtCompound compound = itemStack.getNbt();
         return compound != null && compound.getBoolean("DischargeMode");
     }
 }
