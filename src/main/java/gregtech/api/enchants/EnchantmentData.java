@@ -45,23 +45,23 @@ public class EnchantmentData {
         return result;
     }
 
-    public static Map<Enchantment, Integer> reduceEnchantmentList(List<EnchantmentData> enchantments) {
-        BinaryOperator<EnchantmentData> enchantmentCombiner = (data1, data2) -> {
-            Enchantment enchantment = data1.getEnchantment();
-            int level = data1.getLevel() + data2.getLevel();
-
-            int maxLevel = enchantment.getMaxLevel();
-            int minLevel = enchantment.getMinLevel();
-            int clampedLevel = MathHelper.clamp(level, minLevel, maxLevel);
-
-            return new EnchantmentData(enchantment, clampedLevel);
-        };
-
-        Collector<EnchantmentData, EnchantmentData, Integer> resultCollector = Collectors.collectingAndThen(
-                Collectors.reducing(enchantmentCombiner),
-                optional -> optional.orElseThrow().getLevel());
-
-        return enchantments.stream()
-                .collect(Collectors.groupingBy(EnchantmentData::getEnchantment, resultCollector));
-    }
+//    public static Map<Enchantment, Integer> reduceEnchantmentList(List<EnchantmentData> enchantments) {
+//        BinaryOperator<EnchantmentData> enchantmentCombiner = (data1, data2) -> {
+//            Enchantment enchantment = data1.getEnchantment();
+//            int level = data1.getLevel() + data2.getLevel();
+//
+//            int maxLevel = enchantment.getMaxLevel();
+//            int minLevel = enchantment.getMinLevel();
+//            int clampedLevel = MathHelper.clamp(level, minLevel, maxLevel);
+//
+//            return new EnchantmentData(enchantment, clampedLevel);
+//        };
+//
+//        Collector<EnchantmentData, EnchantmentData, Integer> resultCollector = Collectors.collectingAndThen(
+//                Collectors.reducing(enchantmentCombiner),
+//                optional -> optional.orElseThrow().getLevel());
+//
+//        return enchantments.stream()
+//                .collect(Collectors.groupingBy(EnchantmentData::getEnchantment, resultCollector));
+//    }
 }

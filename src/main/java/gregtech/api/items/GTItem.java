@@ -10,23 +10,14 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import alexiil.mc.lib.attributes.misc.LimitedConsumer;
 import alexiil.mc.lib.attributes.misc.NullVariant;
-import alexiil.mc.lib.attributes.misc.PlayerInvUtil;
 import alexiil.mc.lib.attributes.misc.Reference;
-import gregtech.api.capability.item.DischargeMode;
-import gregtech.api.capability.item.ElectricItem;
-import gregtech.api.capability.GTAttributes;
-import gregtech.api.capability.item.TransferLimit;
 import gregtech.api.items.stats.ElectricStats;
 import gregtech.api.items.stats.FluidStats;
 import gregtech.api.items.util.CustomMaxCountItem;
-import gregtech.api.util.ElectricItemUtil;
-import gregtech.api.util.GTUtility;
-import gregtech.api.util.ref.InventorySlotRef;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -39,7 +30,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
 
 public class GTItem extends Item implements AttributeProviderItem, CustomMaxCountItem {
 
@@ -77,12 +67,12 @@ public class GTItem extends Item implements AttributeProviderItem, CustomMaxCoun
 
     @Override
     public int getMaxCount(ItemStack itemStack) {
-        if (isElectricItem()) {
-            ElectricItem electricItem = GTAttributes.ELECTRIC_ITEM.getFirstOrNull(itemStack);
-            if (electricItem != null && electricItem.getCharge() > 0L) {
-                return 1;
-            }
-        }
+//        if (isElectricItem()) {
+//            ElectricItem electricItem = GTAttributes.ELECTRIC_ITEM.getFirstOrNull(itemStack);
+//            if (electricItem != null && electricItem.getCharge() > 0L) {
+//                return 1;
+//            }
+//        }
         return this.getMaxCount();
     }
 
@@ -90,13 +80,13 @@ public class GTItem extends Item implements AttributeProviderItem, CustomMaxCoun
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
 
-        if (isElectricItem()) {
-            ElectricItem electricItem = GTAttributes.ELECTRIC_ITEM.getFirstOrNull(stack);
-
-            if (electricItem != null) {
-                electricItem.addItemTooltip(tooltip, context);
-            }
-        }
+//        if (isElectricItem()) {
+//            ElectricItem electricItem = GTAttributes.ELECTRIC_ITEM.getFirstOrNull(stack);
+//
+//            if (electricItem != null) {
+//                electricItem.addItemTooltip(tooltip, context);
+//            }
+//        }
 
         if (isFluidContainer()) {
             GroupedFluidInvView fluidInv = FluidAttributes.GROUPED_INV_VIEW.get(stack);
@@ -132,10 +122,10 @@ public class GTItem extends Item implements AttributeProviderItem, CustomMaxCoun
 
     @Override
     public void addAllAttributes(Reference<ItemStack> stack, LimitedConsumer<ItemStack> excess, ItemAttributeList<?> to) {
-        if (isElectricItem()) {
-            ElectricItem electricItem = electricStats.createImplementation(stack, excess);
-            to.offer(electricItem);
-        }
+//        if (isElectricItem()) {
+//            ElectricItem electricItem = electricStats.createImplementation(stack, excess);
+//            to.offer(electricItem);
+//        }
 
         if (isFluidContainer()) {
             GroupedFluidInv fluidInventory = fluidStats.createImplementation(stack, excess);
@@ -152,13 +142,13 @@ public class GTItem extends Item implements AttributeProviderItem, CustomMaxCoun
                 if (!world.isClient() && entity instanceof PlayerEntity player) {
 
                     PlayerInventory playerInventory = player.getInventory();
-                    int realSlot = GTUtility.getItemStackInventorySlot(playerInventory, stack);
+//                    int realSlot = GTUtility.getItemStackInventorySlot(playerInventory, stack);
 
-                    ElectricItem electricItem = getItemFromSlot(player, playerInventory, realSlot);
-
-                    if (electricItem != null && electricItem.getCharge() > 0) {
-                        chargeInventoryItems(player, playerInventory, electricItem);
-                    }
+//                    ElectricItem electricItem = getItemFromSlot(player, playerInventory, realSlot);
+//
+//                    if (electricItem != null && electricItem.getCharge() > 0) {
+//                        chargeInventoryItems(player, playerInventory, electricItem);
+//                    }
                 }
             }
         }
@@ -168,9 +158,9 @@ public class GTItem extends Item implements AttributeProviderItem, CustomMaxCoun
         Set<FluidKey> storedFluids = fluidInv.getStoredFluids();
 
         if (storedFluids.isEmpty()) {
-            FluidAmount totalCapacity = fluidInv.getTotalCapacity_F();
-            Text emptyTooltipLine = FluidKeys.EMPTY.unitSet.getEmptyTank(totalCapacity);
-            tooltip.add(emptyTooltipLine);
+//            FluidAmount totalCapacity = fluidInv.getTotalCapacity_F();
+//            Text emptyTooltipLine = FluidKeys.EMPTY.unitSet.getEmptyTank(totalCapacity);
+//            tooltip.add(emptyTooltipLine);
 
         } else {
             for (FluidKey storedFluid : storedFluids) {
@@ -183,24 +173,24 @@ public class GTItem extends Item implements AttributeProviderItem, CustomMaxCoun
         }
     }
 
-    private ElectricItem getItemFromSlot(PlayerEntity player, Inventory inventory, int slot) {
-        Reference<ItemStack> stackRef = InventorySlotRef.of(inventory, slot);
-        Consumer<ItemStack> excess = PlayerInvUtil.createPlayerInsertable(player);
-
-        return GTAttributes.ELECTRIC_ITEM.getFirstOrNull(stackRef, LimitedConsumer.fromConsumer(excess));
-    }
-
-    private void chargeInventoryItems(PlayerEntity player, Inventory inventory, ElectricItem source) {
-        for (int i = 0; i < inventory.size(); i++) {
-            ElectricItem targetItem = getItemFromSlot(player, inventory, i);
-
-            if (targetItem != null && !targetItem.canProvideChargeExternally()) {
-                if (ElectricItemUtil.chargeElectricItem(source, targetItem, DischargeMode.EXTERNAL, TransferLimit.RESPECT) == 0L) {
-                    return;
-                }
-            }
-        }
-    }
+//    private ElectricItem getItemFromSlot(PlayerEntity player, Inventory inventory, int slot) {
+//        Reference<ItemStack> stackRef = InventorySlotRef.of(inventory, slot);
+//        Consumer<ItemStack> excess = PlayerInvUtil.createPlayerInsertable(player);
+//
+//        return GTAttributes.ELECTRIC_ITEM.getFirstOrNull(stackRef, LimitedConsumer.fromConsumer(excess));
+//    }
+//
+//    private void chargeInventoryItems(PlayerEntity player, Inventory inventory, ElectricItem source) {
+//        for (int i = 0; i < inventory.size(); i++) {
+//            ElectricItem targetItem = getItemFromSlot(player, inventory, i);
+//
+//            if (targetItem != null && !targetItem.canProvideChargeExternally()) {
+//                if (ElectricItemUtil.chargeElectricItem(source, targetItem, DischargeMode.EXTERNAL, TransferLimit.RESPECT) == 0L) {
+//                    return;
+//                }
+//            }
+//        }
+//    }
 
     private void cycleDischargeMode(ItemStack itemStack, PlayerEntity user) {
         boolean newDischargeMode = !isInDishargeMode(itemStack);

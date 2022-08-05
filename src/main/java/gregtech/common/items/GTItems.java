@@ -3,6 +3,7 @@ package gregtech.common.items;
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import gregtech.api.GTValues;
 import gregtech.api.items.GTItem;
+import gregtech.api.items.GTItemGroups;
 import gregtech.api.items.GTItemSettings;
 import gregtech.api.items.stats.ElectricStats;
 import gregtech.api.items.stats.FluidStats;
@@ -299,7 +300,7 @@ public class GTItems {
 
     public static final Item COVER_SHUTTER;
     public static final Item COVER_MACHINE_CONTROLLER;
-    public static final Item COVER_FACADE;
+//    public static final Item COVER_FACADE;
 
     //public static final Item COVER_ACTIVITY_DETECTOR;
     //public static final Item COVER_FLUID_DETECTOR;
@@ -324,7 +325,7 @@ public class GTItems {
 
     public static final Item BOTTLE_PURPLE_DRINK;
 
-    public static final Item DYE_INDIGO;
+//    public static final Item DYE_INDIGO;
     public static final Item PLANT_BALL;
     public static final Item RUBBER_DROP;
     public static final Item ENERGIUM_DUST;
@@ -384,12 +385,12 @@ public class GTItems {
     }
 
     private static Item register(String name) {
-        return register(name, new Item(new Item.Settings()));
+        return register(name, new Item(new Item.Settings().group(GTItemGroups.MAIN)));
     }
 
-    public static Item getIntegratedCircuit(int configuration) {
-
-    }
+//    public static Item getIntegratedCircuit(int configuration) {
+//
+//    }
 
     static {
         CREDIT_COPPER = register("credit_copper");
@@ -749,5 +750,9 @@ public class GTItems {
 
         TURBINE_ROTOR = register("turbine_rotor"); // todo .addComponents(new TurbineRotorBehavior());
         //COVER_FACADE = addItem(509, "cover.facade").addComponents(new FacadeItem()).disableModelLoading();
+    }
+
+    public static void init() {
+
     }
 }

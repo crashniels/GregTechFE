@@ -4,6 +4,7 @@ import gregtech.api.items.toolitem.ToolItem;
 import gregtech.api.items.toolitem.ToolItemSettings;
 import gregtech.api.items.toolitem.ToolItemType;
 import gregtech.api.unification.material.Material;
+import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 
@@ -11,6 +12,11 @@ public class MiningToolItem extends ToolItem {
 
     public MiningToolItem(ToolItemSettings settings, ToolItemType toolItemType, Material material) {
         super(settings, toolItemType, material);
+    }
+
+    @Override
+    protected boolean isCorrectToolForBlock(BlockState state) {
+        return false;
     }
 
     @Override
