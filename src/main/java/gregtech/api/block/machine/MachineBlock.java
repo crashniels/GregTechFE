@@ -11,7 +11,6 @@ import gregtech.api.block.util.ModelStateProviderBlock;
 import gregtech.api.capability.block.WrenchableBlock;
 import gregtech.api.render.model.state.ModelState;
 import gregtech.api.render.model.state.ModelStateManager;
-import gregtech.mixin.accessor.BlockLootTableGeneratorAccessor;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
@@ -22,10 +21,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.ItemScatterer;
@@ -39,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
-public abstract class MachineBlock extends Block implements ModelStateProviderBlock, BlockEntityProvider, AutoTaggedBlock, LootTableAwareBlock, WrenchableBlock {
+public abstract class MachineBlock extends Block implements ModelStateProviderBlock, BlockEntityProvider, AutoTaggedBlock, /*LootTableAwareBlock,*/ WrenchableBlock {
 
     protected final MachineModuleCollection moduleCollection;
     protected final ModelStateManager<Block> modelStateManager;
@@ -68,14 +63,14 @@ public abstract class MachineBlock extends Block implements ModelStateProviderBl
         outTags.add(GTBlockTags.WRENCH_MINEABLE);
     }
 
-    @Override
-    public LootTable.Builder generateLootTable() {
-        return LootTable.builder().pool(BlockLootTableGeneratorAccessor.addSurvivesExplosionCondition(this,
-                LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0f))
-                        .with(ItemEntry.builder(this))
-        ));
-    }
+//    @Override
+//    public LootTable.Builder generateLootTable() {
+//        return LootTable.builder().pool(BlockLootTableGeneratorAccessor.addSurvivesExplosionCondition(this,
+//                LootPool.builder()
+//                        .rolls(ConstantLootNumberProvider.create(1.0f))
+//                        .with(ItemEntry.builder(this))
+//        ));
+//    }
 
     @Nullable
     public static MachineBlockEntity getMachineAt(BlockView world, BlockPos pos) {

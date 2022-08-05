@@ -4,11 +4,8 @@ import com.google.common.base.Preconditions;
 import gregtech.api.GTValues;
 import gregtech.api.gui.impl.ModularUIScreen;
 import gregtech.api.gui.impl.ModularUIScreenHandler;
-import gregtech.api.net.NetworkPacket;
 import gregtech.api.net.PacketUIOpen;
 import gregtech.api.net.PacketUIWidgetUpdate;
-import gregtech.api.util.GTUtility;
-import gregtech.mixin.accessor.ServerPlayerEntityAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
@@ -17,11 +14,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-
-import java.util.List;
 
 /**
  * Implement and register to {@link #REGISTRY} to be able to create and open ModularUI's
@@ -38,31 +32,31 @@ public abstract class UIFactory<E extends UIHolder> {
             .attribute(RegistryAttribute.SYNCED)
             .buildAndRegister();
 
-    public final void openUI(E holder, ServerPlayerEntity player) {
-        if (GTUtility.isFakePlayer(player)) {
-            return;
-        }
-        ModularUI uiTemplate = createUITemplate(holder, player);
-        uiTemplate.initWidgets();
-
-        //Code below based on the code in ServerPlayerEntity#openHandledScreen
-        if (player.currentScreenHandler != player.playerScreenHandler) {
-            player.closeHandledScreen();
-        }
-
-        ((ServerPlayerEntityAccessor) player).incrementScreenHandlerSyncId();
-
-        int screenHandlerSyncId = ((ServerPlayerEntityAccessor) player).getScreenHandlerSyncId();
-        ModularUIScreenHandler screenHandler = new ModularUIScreenHandler(uiTemplate, screenHandlerSyncId);
-
-        //accumulate all initial updates of widgets in open packet
-        List<PacketUIWidgetUpdate> widgetUpdates = screenHandler.accumulateWidgetUpdates();
-        NetworkPacket packet = new PacketUIOpen<>(this, holder, screenHandler.syncId, widgetUpdates);
-        packet.sendTo(player);
-
-        ((ServerPlayerEntityAccessor) player).onSpawn(screenHandler);
-        player.currentScreenHandler = screenHandler;
-    }
+//    public final void openUI(E holder, ServerPlayerEntity player) {
+//        if (GTUtility.isFakePlayer(player)) {
+//            return;
+//        }
+//        ModularUI uiTemplate = createUITemplate(holder, player);
+//        uiTemplate.initWidgets();
+//
+//        //Code below based on the code in ServerPlayerEntity#openHandledScreen
+//        if (player.currentScreenHandler != player.playerScreenHandler) {
+//            player.closeHandledScreen();
+//        }
+//
+//        ((ServerPlayerEntityAccessor) player).incrementScreenHandlerSyncId();
+//
+//        int screenHandlerSyncId = ((ServerPlayerEntityAccessor) player).getScreenHandlerSyncId();
+//        ModularUIScreenHandler screenHandler = new ModularUIScreenHandler(uiTemplate, screenHandlerSyncId);
+//
+//        //accumulate all initial updates of widgets in open packet
+//        List<PacketUIWidgetUpdate> widgetUpdates = screenHandler.accumulateWidgetUpdates();
+//        NetworkPacket packet = new PacketUIOpen<>(this, holder, screenHandler.syncId, widgetUpdates);
+//        packet.sendTo(player);
+//
+//        ((ServerPlayerEntityAccessor) player).onSpawn(screenHandler);
+//        player.currentScreenHandler = screenHandler;
+//    }
 
     @Environment(EnvType.CLIENT)
     public final void initClientUI(MinecraftClient client, PacketUIOpen<E> packet) {
@@ -81,7 +75,7 @@ public abstract class UIFactory<E extends UIHolder> {
             }
 
             entityPlayer.currentScreenHandler = screenHandler;
-            client.openScreen(modularUIScreen);
+            client.setScreen(modularUIScreen);
         });
     }
 

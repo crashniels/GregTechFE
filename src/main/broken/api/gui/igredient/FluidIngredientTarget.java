@@ -6,7 +6,6 @@ import alexiil.mc.lib.attributes.fluid.FluidExtractable;
 import alexiil.mc.lib.attributes.fluid.FluidVolumeUtil;
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import gregtech.api.util.GTUtility;
 import net.minecraft.item.ItemStack;
 
 import java.awt.*;

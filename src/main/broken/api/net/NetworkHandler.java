@@ -1,9 +1,7 @@
 package gregtech.api.net;
 
-import gregtech.mixin.impl.GTClientPlayNetworkHandler;
 import gregtech.api.gui.UIHolder;
 import gregtech.api.gui.impl.ModularUIScreenHandler;
-import gregtech.api.recipes.GTRecipeManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -27,13 +25,13 @@ public class NetworkHandler {
             ModularUIScreenHandler.handleWidgetUpdate(client, packet);
         });
 
-        ClientPlayNetworking.registerGlobalReceiver(PacketMachineRecipesSynchronize.CHANNEL,
-                (client, handler, buf, responseSender) -> {
-
-            PacketMachineRecipesSynchronize packet = new PacketMachineRecipesSynchronize(buf);
-            GTRecipeManager recipeManager = ((GTClientPlayNetworkHandler) handler).gregtech_getRecipeManager();
-            recipeManager.setRecipes(packet.getRecipes());
-        });
+//        ClientPlayNetworking.registerGlobalReceiver(PacketMachineRecipesSynchronize.CHANNEL,
+//                (client, handler, buf, responseSender) -> {
+//
+//            PacketMachineRecipesSynchronize packet = new PacketMachineRecipesSynchronize(buf);
+//            GTRecipeManager recipeManager = ((GTClientPlayNetworkHandler) handler).gregtech_getRecipeManager();
+//            recipeManager.setRecipes(packet.getRecipes());
+//        });
     }
 
     public static void registerServerBoundPackets() {

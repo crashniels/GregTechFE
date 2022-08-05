@@ -11,9 +11,17 @@ public class GTItemGroups {
             new Identifier("gregtech", "main"),
             Items.GRANITE::getDefaultStack);
 
-    public static ItemGroup MATERIALS;
-    public static ItemGroup TOOLS;
-    public static ItemGroup ORES;
+    public static final ItemGroup MATERIALS = FabricItemGroupBuilder.build(
+            new Identifier("gregtech", "materials"),
+            Items.GRANITE::getDefaultStack);
+
+    public static final ItemGroup TOOLS = FabricItemGroupBuilder.build(
+            new Identifier("gregtech", "tools"),
+            Items.GRANITE::getDefaultStack);
+
+    public static final ItemGroup ORES = FabricItemGroupBuilder.build(
+            new Identifier("gregtech", "ores"),
+            Items.GRANITE::getDefaultStack);
 
 
     public static void init() {
