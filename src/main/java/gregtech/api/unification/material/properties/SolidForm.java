@@ -6,8 +6,8 @@ import gregtech.api.unification.forms.MaterialForms;
 public enum SolidForm {
 
     METAL(MaterialForms.INGOTS),
-    GEM(MaterialForms.GEM),
-    POLYMER(MaterialForms.POLYMER);
+    GEM(MaterialForms.GEMS);
+//    POLYMER(MaterialForms.POLYMER);
 
     private final MaterialForm solidForm;
 

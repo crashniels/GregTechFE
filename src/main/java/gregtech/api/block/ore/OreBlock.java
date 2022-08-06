@@ -1,21 +1,14 @@
 package gregtech.api.block.ore;
 
 import gregtech.api.block.util.AutoTaggedBlock;
-import gregtech.api.block.util.LootTableAwareBlock;
-import gregtech.api.items.material.MaterialItemForms;
-import gregtech.api.items.material.MaterialItemId;
-import gregtech.api.items.material.MaterialItemRegistry;
 import gregtech.api.items.toolitem.MiningLevelHelper;
 import gregtech.api.unification.forms.MaterialForms;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.flags.MaterialFlags;
 import gregtech.api.unification.ore.OreVariant;
-import gregtech.mixin.accessor.BlockLootTableGeneratorAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FallingBlock;
-import net.minecraft.item.Item;
-import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.tag.Tag;
@@ -29,7 +22,7 @@ import net.minecraft.world.WorldAccess;
 import java.util.Random;
 import java.util.Set;
 
-public class OreBlock extends FallingBlock implements AutoTaggedBlock, LootTableAwareBlock {
+public class OreBlock extends FallingBlock implements AutoTaggedBlock/*, LootTableAwareBlock */{
 
     private final OreVariant variant;
     private final Material material;
@@ -65,13 +58,13 @@ public class OreBlock extends FallingBlock implements AutoTaggedBlock, LootTable
         MiningLevelHelper.addTagForHarvestLevel(Math.max(baseHarvestLevel, materialHarvestLevel), outTags);
     }
 
-    @Override
-    public LootTable.Builder generateLootTable() {
-        MaterialItemId itemId = new MaterialItemId(MaterialItemForms.RAW_RESOURCE, material);
-        Item rawResourceItem = MaterialItemRegistry.INSTANCE.getMaterialItem(itemId);
-
-        return BlockLootTableGeneratorAccessor.oreDrops(this, rawResourceItem);
-    }
+//    @Override
+//    public LootTable.Builder generateLootTable() {
+//        MaterialItemId itemId = new MaterialItemId(MaterialItemForms.RAW_RESOURCE, material);
+//        Item rawResourceItem = MaterialItemRegistry.INSTANCE.getMaterialItem(itemId);
+//
+//        return BlockLootTableGeneratorAccessor.oreDrops(this, rawResourceItem);
+//    }
 
     @Override
     public int getColor(BlockState state, BlockView world, BlockPos pos) {

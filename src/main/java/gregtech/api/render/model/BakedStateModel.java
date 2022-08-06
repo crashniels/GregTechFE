@@ -116,8 +116,8 @@ public class BakedStateModel implements BakedModel, FabricBakedModel {
     }
 
     @Override
-    public Sprite getSprite() {
-        return this.masterModel.getSprite();
+    public Sprite getParticleSprite() {
+        return this.masterModel.getParticleSprite();
     }
 
 

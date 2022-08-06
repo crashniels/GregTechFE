@@ -98,4 +98,8 @@ public class OreVariants {
             .modelPath(new Identifier(GTValues.MODID, "block/ore_variant/end_stone"))
         ));
     }
+
+    public static void init() {
+
+    }
 }

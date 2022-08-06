@@ -30,7 +30,7 @@ public class GTModelVariantProvider implements ModelVariantProvider {
     }
 
     private void registerDefaultProviders(ResourceManager resourceManager) {
-        this.blockModelProviders.add(new OreBlockHandler());
+//        this.blockModelProviders.add(new OreBlockHandler());
         this.blockModelProviders.add(new BlockStateModelProvider(resourceManager));
         this.itemModelProviders.add(new ModelProviderItemHandler());
     }

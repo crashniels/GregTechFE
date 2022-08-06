@@ -55,13 +55,14 @@ public class PolarizableMetalProperty implements VerifiedPropertyValue {
     }
 
     @Override
-    public void verifyValue(Material ownedMaterial, MaterialProperty<?> parentProperty) {
+    public boolean verifyValue(Material ownedMaterial, MaterialProperty<?> parentProperty) {
         if (polarizedInto != null) {
             validateProperty(ownedMaterial, this.polarizedInto.get());
         }
         if (demagnetizedInto != null) {
             validateProperty(ownedMaterial, this.demagnetizedInto.get());
         }
+        return false;
     }
 
     private static void validateProperty(Material ownerMaterial, Material material) {

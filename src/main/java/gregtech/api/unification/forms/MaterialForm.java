@@ -5,6 +5,7 @@ import gregtech.api.GTValues;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.util.MaterialAmount;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
+import net.fabricmc.fabric.api.tag.TagFactory;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -67,12 +68,12 @@ public class MaterialForm {
 
     protected Tag.Identified<Item> createItemTag(Material material) {
         Identifier tagId = createTagIdentifier(material);
-        return TagRegistry.create(tagId, ItemTags::getTagGroup);
+        return TagFactory.ITEM.create(tagId);
     }
 
     protected Tag.Identified<Block> createBlockTag(Material material) {
         Identifier tagId = createTagIdentifier(material);
-        return TagRegistry.create(tagId, BlockTags::getTagGroup);
+        return TagFactory.BLOCK.create(tagId);
     }
 
     private static Material findMaterialByName(String materialName) {

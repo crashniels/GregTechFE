@@ -93,8 +93,7 @@ public class MaterialFlag {
 
     private void verifyConflictingFlags() {
         List<MaterialFlag> conflictingFlags = requiredFlags.stream()
-                .filter(this.conflictingFlags::contains)
-                .collect(Collectors.toList());
+                .filter(this.conflictingFlags::contains).toList();
         if (!conflictingFlags.isEmpty()) {
             throw new IllegalArgumentException("Some flags are both required and conflicted with: " + conflictingFlags);
         }

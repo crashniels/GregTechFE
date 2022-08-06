@@ -21,8 +21,8 @@ import java.util.Optional;
 public class MaterialFluidRegistry {
 
     private static final Map<MaterialFluidId, FluidKey> BUILTIN_FLUIDS = ImmutableMap.of(
-            new MaterialFluidId(MaterialFluidKind.FLUID, Materials.Water), FluidKeys.WATER,
-            new MaterialFluidId(MaterialFluidKind.FLUID, Materials.Lava), FluidKeys.LAVA
+            new MaterialFluidId(MaterialFluidKind.FLUID, Materials.Water), FluidKeys.WATER
+//            new MaterialFluidId(MaterialFluidKind.FLUID, Materials.Lava), FluidKeys.LAVA
     );
 
     public static final MaterialFluidRegistry INSTANCE = new MaterialFluidRegistry();

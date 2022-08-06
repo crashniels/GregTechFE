@@ -137,6 +137,10 @@ public class Elements {
     private static Element register(String name, Element element) {
         return Registry.register(Element.REGISTRY, new Identifier(GTValues.MODID, name), element);
     }
+
+    public static void init() {
+
+    }
 }
 
 //    D(1, 1, -1, "H", "Deuterium", true),

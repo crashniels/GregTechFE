@@ -237,14 +237,14 @@ public class Material implements Comparable<Material> {
             return this;
         }
 
-        public Settings polymer(int harvestLevel) {
-            Preconditions.checkArgument(harvestLevel >= 0, "harvestLevel >= 0");
-
-            property(SOLID_FORM, SolidForm.POLYMER);
-            property(HARVEST_LEVEL, harvestLevel);
-
-            return this;
-        }
+//        public Settings polymer(int harvestLevel) {
+//            Preconditions.checkArgument(harvestLevel >= 0, "harvestLevel >= 0");
+//
+//            property(SOLID_FORM, SolidForm.POLYMER);
+//            property(HARVEST_LEVEL, harvestLevel);
+//
+//            return this;
+//        }
 
         public Settings canCreateTools(float miningSpeed, float attackDamage, int durability) {
             return canCreateToolsWithDefaultEnchant(miningSpeed, attackDamage, durability, 12);

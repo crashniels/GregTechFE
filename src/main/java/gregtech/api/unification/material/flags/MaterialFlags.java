@@ -164,6 +164,8 @@ public class MaterialFlags {
         BURN_TIME = register("burn_time", new MaterialProperty<>(
                 new MaterialProperty.Settings<Integer>()
                         .requires(FLAMMABLE)
+                        .valueType(Integer.class)
+                        .defaultValue(0)
                         .requires(GENERATE_DUST)
         ));
 
@@ -323,5 +325,9 @@ public class MaterialFlags {
                     .requires(GENERATE_RING)
                     .requires(GENERATE_BOLT_SCREW)
         ));
+    }
+
+    public static void init() {
+
     }
 }
